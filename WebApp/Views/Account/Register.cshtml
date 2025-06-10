@@ -1,0 +1,70 @@
+﻿@using WebApp.ViewModels;
+@model RegisterViewModel;
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+</head>
+    
+ <div class="container">   
+    <main>
+        <div class="margi-init">
+            <div class="card w-25 box2 warning ml-100 mr-100 mx-auto text-center">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a class="nav-link text_sh4 iconeLogin"><i class="fa-regular fa-address-card fa-2x"></i></a>
+                    </h3>
+                </div>
+                <hr class="config1" />
+                <div class="panel-body">
+                    <form role="form" asp-action="Register" asp-controller="Account" method="post">
+
+                        <div class="form-group itemLogin">
+                            <input asp-for="Name" class="form-control btn btn-outline-light input-sm" placeholder="Digite o Nome" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group itemLogin">
+                            <input asp-for="Email" class="form-control btn btn-outline-light input-sm" placeholder="Digite o Email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group itemLogin">
+                            <input asp-for="Password" class="form-control btn btn-outline-light input-sm" placeholder="Digite a Senha" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group itemLogin">
+                            <input asp-for="ConfirmPassword" class="form-control btn btn-outline-light input-sm" placeholder="Digite a confirmação da Senha" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group item itemLogin">
+                            <input type="submit" value="Registrar" class="btn btn-light btn-block input-sm">
+                        </div>
+                    </form>
+                </div>
+                @if (ViewData["messagem"] != null)
+                {
+                    <div class="itemLogin">
+                        <div class="alert alert-danger alert-dismissible fade show alert-size2" role="alert">
+                            @ViewData["messagem"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>                   
+                }
+                <hr class="config2" />
+                <blockquote class="itemLogin iconeLoginConfig">
+                    <p>
+                        PARA CADASTRAR NO SISTEMA, ENTRE COM OS SEUS DADOS. CASO POSSUE CADASTRO,
+                        <a href="@Url.Action("login", "Account")" class="anewcolor">CLIQUE AQUI</a>
+                        PARA ACESSAR O SISTEMA.
+                    </p>
+                </blockquote>
+            </div>
+        </div>        
+    </main>
+</div>

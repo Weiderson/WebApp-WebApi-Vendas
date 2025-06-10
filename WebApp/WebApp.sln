@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36017.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp.csproj", "{F6D1148D-7B66-BCFA-AED0-CC2AF25D5389}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorClassLibrary", "..\RazorClassLibrary\RazorClassLibrary.csproj", "{4FE05FE7-960C-4580-8423-85B69BFDC2F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F6D1148D-7B66-BCFA-AED0-CC2AF25D5389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6D1148D-7B66-BCFA-AED0-CC2AF25D5389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6D1148D-7B66-BCFA-AED0-CC2AF25D5389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6D1148D-7B66-BCFA-AED0-CC2AF25D5389}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FE05FE7-960C-4580-8423-85B69BFDC2F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FE05FE7-960C-4580-8423-85B69BFDC2F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FE05FE7-960C-4580-8423-85B69BFDC2F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FE05FE7-960C-4580-8423-85B69BFDC2F7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1580F5EB-4F4B-4034-B10B-03A41021B953}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,146 @@
+﻿@model WebApp.Models.ErroAPIViewModel
+
+@{
+    ViewData["Title"] = "Erro";
+}
+
+<div class="erro-margin">
+
+    <div class="erro-color erro-display"><h2><i class="fa fa-exclamation-triangle"></i></h2></div>&nbsp;&nbsp;
+    <div class="erro-font erro-display"><h5>Ocorreu um erro durante a requisição.</h5></div>
+
+    <hr />
+
+    @if (Model.Erro)
+    {
+        <div class="erro-font">
+            <p>
+                <strong>Codigo de status: </strong> <code>@Model.StatusCode.</code><br />
+                <strong>Url: </strong> <code>@Model.Url.</code><br />
+                <strong>Site: </strong> <code>@Model.Site.</code><br />
+                <strong>Mensagemde de erro: </strong> <code>@Model.Mensagem.</code><br />
+            </p>
+        </div>
+        
+        <hr />
+
+        switch (Model.StatusCode)
+        {
+            case 500:
+                <p>500 Internal Server Error: Um erro interno ocorreu no servidor, impedindo-o de concluir a requisição.  
+                    <strong>Verifique se a API se está ativada e rodando no servidor ou localmente no Visual Studio na porta 7141.</strong>
+                </p>
+            break;
+
+
+            case 501:
+                <p>501 Not Implemented: O servidor não consegue executar a requisição porque o recurso solicitado não é suportado.</p>
+            break;
+
+
+            case 502:
+                <p>502 Bad Gateway: O servidor está atuando como gateway ou proxy e recebeu uma resposta inválida de um servidor upstream.</p>
+            break;
+
+
+            case 503:
+                <p>503 Service Unavailable: O servidor está temporariamente indisponível.</p>
+            break;
+
+
+            case 504:
+                <p>504 Gateway Timeout: O servidor, agindo como gateway ou proxy, não recebeu uma resposta de um servidor upstream dentro do tempo limite.</p>
+            break;
+
+
+            case 505:
+                <p>505 HTTP Version Not Supported: O servidor não suporta a versão do protocolo HTTP usada na requisição.</p>
+            break;
+
+
+            case 506:
+                <p>506 Variant Also Negotiates: O servidor está sendo usado como um servidor de negociação de conteúdo e recebeu uma requisição para um recurso que também negocia variantes.</p>
+            break;
+
+
+            case 507:
+                <p>507 Insufficient Storage: O servidor não tem espaço suficiente para atender a requisição.</p>
+            break;
+
+
+            case 508:
+                <p>508 Loop Detected: O servidor detectou um loop infinito ao processar a requisição.</p>
+            break;
+
+
+            case 509:
+                <p>509 Bandwidth Limit Exceeded: O servidor excedeu o limite de largura de banda.</p>
+            break;
+
+
+            case 510:
+                <p>510 Not Extended: O servidor não pode atender à requisição porque não há informações adicionais disponíveis.</p>
+            break;
+               
+                
+            case 511:
+                <p>511 Network Authentication Required: O vendedor precisa se autenticar para obter acesso à rede.</p>
+            break;
+           
+
+            case 400:
+                <p> 400 Bad Request: A requisição não pôde ser entendida pelo servidor devido a sintaxe inválida.</p>
+            break;
+
+        
+            case 401:               
+                <p> 401 Unauthorized: A requisição requer autenticação do usuário.</p>  
+            break;
+
+
+            case 402:                
+                <p> 402 Payment Required: O servidor não pode processar a requisição porque o pagamento é necessário.</p>
+            break;
+
+        
+            case 403:                
+                <p> 403 Forbidden: O servidor entendeu a requisição, mas se recusa a autorizá - la.</p>
+             break;
+            
+           
+            case 404:                
+                <p> 404 Not Found: O servidor não encontrou o recurso solicitado.</p>
+            break;
+
+
+            case 405:
+                <p> 405 Method Not Allowed: O método especificado na requisição não é permitido para o recurso solicitado.</p>
+            break;
+
+
+            case 406:
+                <p> 406 Not Acceptable: O recurso solicitado não é aceitável de acordo com os cabeçalhos de aceitação enviados na requisição.</p>
+            break;
+
+
+            case 407:
+                <p> 407 Proxy Authentication Required: O vendedor deve se autenticar com o proxy para obter acesso ao recurso solicitado.</p>
+            break;
+
+
+            case 408:
+                <p> 408 Request Timeout: O servidor não recebeu uma requisição dentro do tempo limite especificado.</p>
+            break;
+
+
+            case 409:
+                <p> 409 Conflict: A requisição não pôde ser concluída devido a um conflito com o estado atual do recurso.</p>
+            break;
+
+            default:
+            <p> Ocorreu um erro.</p>
+            break;
+        }
+    }
+
+</div>

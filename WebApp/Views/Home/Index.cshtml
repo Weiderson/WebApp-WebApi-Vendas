@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Sitema de Vendedores";
+}
+
+<div>
+@* <div class="justify-content-center align-items-center"> *@
+    <div class="text-left">
+        <div id="" class="alert alert-light alert-dismissible fade show" role="alert">
+            <i class="fa-solid fa-bell ifa"></i>&nbsp;&nbsp;
+            <span class="textdot">PROJEÇÃO</span> está conectada diretamente ao banco de dados.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div id="" class="alert alert-light alert-dismissible fade show" role="alert">
+            <i class="fa-solid fa-bell ifa"></i>&nbsp;&nbsp;
+            <span class="textdot">API VENDA</span> está conectada diretamente á API.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div id="" class="alert alert-light alert-dismissible fade show" role="alert">
+            <i class="fa-solid fa-bell ifa"></i>&nbsp;&nbsp;
+            Acesse a página de configurações para maiores detalhes,&nbsp;<a class="anewcolor" asp-area="" asp-controller="Home" asp-action="Config">Clique aqui</a>.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <div class="div_init text-center">
+        <div class="row ft1 text_sh1">
+            <div class="col-md-6">
+                <div class="catalog catalog1">
+                    <a href="@Url.Action("Index", "VendedorApp")" class="page-link">
+                        <div class="card">
+                            <h2 class="title">PROJEÇÃO</h2>
+                            <div class="">
+                                <img class="" src="~/images/icon1p.png" style="height:auto;width:auto;" />
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="catalog">
+                    <a href="@Url.Action("Index", "VendaAPI")" class="page-link">
+                        <div class="card">
+                            <h2 class="title">API VENDA</h2>
+                            <div class="">
+                                <img class="" src="~/images/icon2p.png " style="height:auto;width:auto;" />
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

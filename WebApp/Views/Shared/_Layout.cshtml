@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PROJEÇÃO/API VENDA</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/cards.css" />    
+    <link rel="stylesheet" href="~/css/site.css" />    
+    <link rel="stylesheet" href="~/css/datatable/datatables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/5.0.4/css/fixedColumns.bootstrap5.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/datatable.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light navbar-bg-white-blu border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand text-light text_sh2" asp-area="" asp-controller="Home" asp-action="Index">SISTEMA</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse d-sm-inline-flex justify-content-between collapse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-light text_sh2" asp-area="" asp-controller="VendedorApp" asp-action="Index">PROJEÇÃO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light text_sh2" asp-area="" asp-controller="VendaAPI" asp-action="Index">API VENDA</a>
+                        </li>                      
+                        <partial name="_LayoutPartial" />
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">       
+        <main role="main" class="pb-3">            
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="border-top footer text-muted fixed-bottom">
+        <div class="container">
+            &copy; 2025 - PROJEÇÃO/API VENDA - <a class="text-light text_sh2" asp-area="MyFeature" asp-page="/About">SOBRE O AUTOR</a>
+        </div>
+    </footer>
+    <script type="importmap"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/script/datatable/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/5.0.4/js/fixedColumns.bootstrap5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

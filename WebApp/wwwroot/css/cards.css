@@ -1,0 +1,76 @@
+.div_init {
+    align-content: center;
+    align-items: center;
+    background-color: var(--theme-bg-color,#eaf3fd);
+    background-color: rgba(125,125,175, 0.37);
+    padding: 10px 10px 10px 10px;
+    max-width: 850px;
+    margin: 20px auto auto auto;
+    border-radius: 15px;   
+}
+
+/* CARD */
+.catalog .card {
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: #f7f7f7;
+    border-radius: 0px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px;
+    overflow: hidden;
+    transition: all .3s ease-out;
+    width: auto;
+    height: auto;
+}
+
+    .catalog .card:hover {
+        box-shadow: 0 0px 0px 0 rgba(0,40,75,.16)
+    }
+
+.catalog .head-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 8px
+}
+
+.catalog .icon {
+    display: block;
+    width: 56px;
+    min-width: 56px;
+    height: 56px
+}
+
+    .catalog .icon .svg-el {
+        width: 100%;
+        height: 100%;
+        fill: none
+    }
+
+.catalog .title {
+    display: block;
+    flex: 1;
+    font: 500 18px/1.5 "Poppins",sans-serif;
+    color: #303030;
+    letter-spacing: 0
+}
+
+
+.card {
+    width: 100%;    
+    padding: 15px 15px 15px 15px;
+    border: 0px solid rgba(255, 255, 255, .25);
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(15px);
+    text-align: center;
+}
+
+.card-footer {
+    font-size: 0.65em;
+    color: #446;
+}

@@ -1,0 +1,414 @@
+﻿@using System.Globalization
+@using System.Collections
+@model IEnumerable<WebApp.ViewModels.VendedorVM>
+
+@{  
+    ViewBag.Title = "Projeção de vendas por vendedor";
+    
+    var projecao = ViewData["projecao"];    
+    var totalvenda = ViewData["totalvenda"];    
+    int qtdvendedores = (int)ViewData["qtdvendedores"];
+
+    var listamelhoresvendedores = Model.OrderByDescending(o => o.ValorTotal).Take(5).ToList();  
+
+    int projecaoindividual = qtdvendedores > 0 ? (int)projecao / qtdvendedores : 0;
+
+    int totalvendacurrency = 0;
+    if (totalvenda != null && int.TryParse(totalvenda.ToString(), NumberStyles.Currency, CultureInfo.CreateSpecificCulture("pt-BR").NumberFormat, out var tvendacurrency))
+    {
+        totalvendacurrency = tvendacurrency;
+    }    
+}
+
+<div class="site-container">
+
+    <div id="" class="alert alert-light alert-dismissible fade show alert2" role="alert">
+        <i class="fa-solid fa-bell ifa"></i>&nbsp;&nbsp;
+        <span class="textdot">PROJEÇÃO</span> está conectada diretamente ao banco de dados.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="row">        
+        <!-- Card 1 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                
+                <div class="card-header cardchat bg-opacity-10 text-white">
+                    <i class="bi bi-cash-coin cardchat"></i> Total Venda Anual
+                </div>
+                
+                <div class="card-body">   
+
+                    <h3 class="font-venda">@totalvenda</h3>
+                    <hr>
+                    <h5>Melhores Desempenhos:</h5>                   
+
+                    @foreach (var item in listamelhoresvendedores.Select((value, i) => new { i, value }))
+                    {
+                        var value = item.value;
+                        var index = item.i;
+                        
+                         if (index == 0 && Convert.ToDecimal(value.ValorTotal) > 0)
+                        {
+                            <p>1° @value.NomeCompleto : <span class="font-venda">@value.ValorTotalCurrency</span></p>
+                        }
+                        if (index == 1 && Convert.ToDecimal(value.ValorTotal) > 0)
+                        {
+                            <p>2° @value.NomeCompleto : <span class="font-venda">@value.ValorTotalCurrency</span></p>
+                        }
+                        if (index == 2 && Convert.ToDecimal(value.ValorTotal) > 0)
+                        {
+                            <p>3° @value.NomeCompleto : <span class="font-venda">@value.ValorTotalCurrency</span></p>
+                        }
+                        if (index == 3 && Convert.ToDecimal(value.ValorTotal) > 0)
+                        {
+                            <p>4° @value.NomeCompleto : <span class="font-venda">@value.ValorTotalCurrency</span></p>
+                        }
+                    }              
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header cardchat text-white">
+                    <i class="bi bi-bar-chart-line-fill"></i> Análise de dados
+                </div>
+                <div class="card-body">
+                    <canvas id="statusChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </div>        
+        <!-- Card 3 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header cardchat text-white">
+                    <i class="bi bi-megaphone-fill cardchat"></i> Variáveis
+                </div>
+                <div class="card-body">
+                    <h5>Projeção</h5>
+                    <p><span class="font-projecao">@Html.Raw(@String.Format("{0:c}", projecao))</span></p>
+                    <h5>Projeção Individual</h5>
+                    <p><span class="font-projecao">@Html.Raw(@String.Format("{0:c}", projecaoindividual))</span></p>
+                    <hr>
+                    <p class="var2">¹ Projeção: Previsão para vendas totais.</p>
+                    <p class="var2">² Projeção Individual: Previsão para vendas por vendedor.</p>
+                </div>
+            </div>
+        </div>   
+    </div>
+    <br />
+    <div class="card">
+        <table id="minhaTabela" class="row-border cell-border compact stripe1 responsive table text-center">
+            <thead>
+                <tr>            
+                    <th>            
+                        @Html.DisplayName("ID")            
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.NomeCompleto)
+                    </th>
+            
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Relacionamento)
+                    </th>
+
+                    <th colspan="2">
+                        @Html.DisplayNameFor(model => model.ValorTotal)
+                    </th>          
+            
+                    <th class="centerTd">
+                        @Html.DisplayNameFor(model => model.Situacao)
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="tr1">
+                        <td id="idcliente">
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NomeCompleto)                    
+                        </td>
+           
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+               
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Relacionamento)
+                        </td>
+
+                        <td>
+                            <progress value="@Html.DisplayFor(modelItem => item.ValorTotal)" max="@projecaoindividual" data-toggle="tooltip" title="@Html.DisplayFor(modelItem => item.Perc)"></progress>
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ValorTotalCurrency)
+                        </td>
+
+                        <td class="centerTd">
+                            @Html.DisplayFor(modelItem => item.Situacao)
+                        </td>              
+                    </tr>         
+                }
+            </tbody>
+        
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+   @*  <div class="catalog"></div> *@
+    <div class="modal fade card card2" id="ModalDetalhes" tabindex="-1" aria-labelledby="DetalharRegistro" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header"></div>
+                <div class="modal-body" id="DivConteudo">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+             </div>
+        </div>
+    </div>
+
+    <div class="modal fade card card2" tabindex="-1" id="ModalCorfimaExclusao" aria-labelledby="ConfirmarExclusao" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Apagar registro</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Confirma a exclusao permanente do registro?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                    <button type="button" class="btn btn-light" id="confirm-delete-ok">Sim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@section scripts {
+    <script>
+        let idrow = 0;
+        let url;
+        let local = 'Desenv';
+        let app = 'Site5';
+        let action = 'Index';
+
+        if (local == 'Producao') {
+            url = '/' + app + '/VendedorApp';
+            urlscripts = app;
+        }
+        else if (local == 'Desenv') {
+            url = '/VendedorApp';
+        }
+    
+        $(document).ready(function () {            
+            $.ajax({
+                type: 'GET',
+                url: url + '/' + action,
+                cache: true,
+                success: function (d) {
+                    var table = $('#minhaTabela').dataTable({
+                        responsive: true,
+                        processing: true,
+                        serverSide: false,
+                        paging: true,
+                        info: true,
+                        searching: true,                      
+                        cache: true,
+                        data: d.data,
+                        select: true,
+                        pagingType: 'simple_numbers',
+                        stripeClasses: [],
+                        "lengthMenu": [
+                            [7 ,15, 30, -1],
+                            [7, 15, 30, 'Todos'],
+                        ],
+                        lengthChange: true,
+                        buttons: [
+                            { extend: 'excel', className: 'btn btn-primary', text: '<i class="far fa-file-excel"></i>' },
+                            { extend: 'pdf', className: 'btn btn-primary',  text: '<i class="fa-regular fa-file-pdf"></i>' },
+                            { extend: 'print', className: 'btn btn-primary', text: '<i class="fa-solid fa-print"></i>' }
+                        ],
+                        "aoColumnDefs": [
+                            { "orderable": false, "targets": [5, 6, 7, 8] },
+                            { "orderable": true, "targets": [1, 2, 3, 4] },
+                            { "visible": true, "targets": [ 0, 1, 2, 3, 4, 5, 6, 7, 8] },
+                            { "className": "dt-left", "targets": [0, 1] },
+                            { "className": "dt-center", "targets": [2, 3, 4, 5, 6, 7, 8] }                            
+                        ],
+                        "columns": [
+                              { "data": "Id", "class": "minhaTabelaCelula" },
+                              { "data": "NomeCompleto", "class": "minhaTabelaCelula" },
+                              { "data": "Email", "class": "minhaTabelaCelula" },
+                              { "data": "Relacionamento", "class": "minhaTabelaCelula" },
+                              { "data": "Progresso", "class": "minhaTabelaCelula" },
+                              { "data": "ValorTotal", "class": "minhaTabelaCelula" },
+                              { "data": "Situacao",
+                                "render": function (row, data, dataIndex) {
+                                    if (row == "Regular")
+                                             return '<i data-toggle="tooltip" title="Regular" class="fa-solid fa-circle-check circ_1 minhaTabelaCelula" ></i>';
+                                    else if (row == "Irregular")
+                                               return '<i data-toggle="tooltip" title="Irregular" class="fa-solid fa-circle-xmark circ_2 minhaTabelaCelula" ></i>';
+                                    else
+                                             return '<i data-toggle="tooltip" title="Indefinido" class="fa-solid fa-circle-exclamation circ_3 minhaTabelaCelula" ></i>';
+                                }
+                             },
+                             {
+                                "data": null, class: "center larguraDt",
+                                render: function (data, type, row) {
+                                          return '<button id="bntDetalhar" type="button" data-toggle="tooltip" title="Detalhar" class="btn btn-light btn-sm custom-button minhaTabelaCelula det_4"><i class="fa-regular fa-window-maximize""></i></button>'
+                                }
+                             },                            
+                            {
+                                "data": null, class: "center larguraDt",
+                                render: function (data, type, row) {
+                                          return '<button id="bntExcluir" type="button" data-toggle="tooltip" title="Excluir" class="btn btn-light btn-sm custom-button minhaTabelaCelula exc_5"><i class="fa-regular fa-trash-can"></i></i></button>'
+                                }
+                            }
+                        ],
+                        "order": [[5, 'desc']],
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/2.1.8/i18n/pt-BR.json'
+                        },
+                        drawCallback: function (settings) {
+                            $('[data-toggle="tooltip"]').tooltip();
+                        }
+                    });
+
+                    table.on('click', 'button', function (e) {
+                        let currentTargetId = (e.currentTarget).id;
+                        idrow = $(this).closest('tr').find('#idcliente').text();                      
+                        if (currentTargetId === 'bntDetalhar') {
+                            var urlinterna = url + "/Details/" + idrow;
+                            $("#DivConteudo").load(urlinterna, function () {
+                                $("#ModalDetalhes").modal("show");
+                                $("#botaoVoltar").hide("show");
+                            })
+                        }
+                        else if (currentTargetId === 'bntExcluir') {                            
+                            $("#ModalCorfimaExclusao").modal("show");
+                        }
+                    });
+                },
+                failure: function (err) {
+                }
+            });
+
+            $('#ModalCorfimaExclusao').find('.modal-footer #confirm-delete-ok').on('click', function () {
+                fDelete(idrow);
+                $('#ModalCorfimaExclusao').modal('hide');
+                return false;
+            });
+            
+            $('#minhaTabela').on('click', 'tr', function () {
+                                                var spanValue = $(this).find('td:eq(5) span:first').text();
+                                                console.log(spanValue);
+            });
+            
+            var projecao = '@ViewData["projecao"]'
+            var totalvenda = '@totalvendacurrency'
+            var ctxStatus = document.getElementById('statusChart').getContext('2d');            
+            var statusChart = new Chart(ctxStatus, {
+                type: 'bar',
+                data: 
+                {                    
+                    labels: [''],
+                
+                    datasets:
+                    [{
+                          label: ['Vendas'],
+                            data: [totalvenda],
+                          backgroundColor: ['rgba(75, 1192, 192, 0.2)' ],
+                            borderColor: ['rgb(75, 1192, 192)'],
+                          borderWidth: 1
+                    },
+                    {
+                          label: ['Projeção'],
+                          data: [projecao],
+                              backgroundColor: ['rgba(153, 102, 255, 0.2)'],
+                                borderColor: ['rgb(153, 102, 255)'],
+                          borderWidth: 1
+                    },
+                    {
+                          label: ['Diferença'],
+                            data: [projecao - totalvenda],
+                              backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+                              borderColor: ['rgb(255, 99, 132)'],
+                          borderWidth: 1
+                    }]
+                
+                },           
+                options: 
+                {
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    indexAxis: 'y', 
+                    legend: 
+                    {
+                        position: 'top', 
+                        labels: 
+                        {
+                           color: '#333'
+                        }
+                    }   
+                },                
+                scales: 
+                {
+                    x:
+                    {
+                        beginAtZero: true, 
+                            ticks:
+                            {
+                                color: '#333' 
+                            }
+                    },
+                    y: 
+                    {
+                        ticks: 
+                        {
+                            color: '#333' 
+                        }
+                    }
+                },                
+                animation: 
+                {
+                    duration: 1500, 
+                    easing: 'easeInOutQuad'
+                }
+            });
+      });      
+
+        function fDelete(idrow) {
+            $.post('@Url.Action("Delete", "VendedorApp")', { id: idrow }, function(response) {
+                    window.location.href = '@Url.Action("index", "VendedorApp")';
+            })
+            .fail(function(jqxhr, textStatus, errorThrown) {
+                console.error("Erro: " + textStatus + " - " + errorThrown);
+
+                var isUserAuthorized = @User.Identity.IsAuthenticated.ToString().ToLower();
+
+                if (!isUserAuthorized) {
+                       window.location.href = '@Url.Action("login", "Account")';
+                }
+            });
+        };
+
+    </script>
+}

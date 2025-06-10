@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <script type="importmap"></script>    
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="Styles/bootstrap.min.css">    
+    <link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />    
+</head>
+<body>   
+    <div>
+     @RenderBody()
+    </div> 
+    <script src="Script/jquery-1.10.2.min.js"></script>
+    <script src="Script/bootstrap.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

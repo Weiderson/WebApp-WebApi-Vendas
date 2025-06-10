@@ -1,0 +1,120 @@
+﻿@model WebApp.Models.Vendedor
+
+@{
+    ViewBag.Title = "Detalhe do registro";
+}
+
+<div>
+    <h4 class="element_center"> @Html.DisplayFor(model => model.NomeCompleto)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <div class="element_center">
+            <dd>
+            
+                @if (ViewBag.Base64String != null)
+                {
+                    <img class="" alt="" src="@ViewBag.Base64String" style="height:200px;width:215px;" />
+                }
+                else
+                {
+                    <img class="" src="~/images/padrao.jpg" style="height:220px;width:220px;" />
+                }           
+             </dd>
+        </div>
+        
+    </dl">
+        <hr />
+    <dl class="dl-horizontal">
+
+            <div class="element_center">
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocumentoTipo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DocumentoTipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocumentoNumero)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DocumentoNumero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Telefone)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Relacionamento)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Relacionamento)
+        </dd>
+
+        <dt>
+                    @Html.DisplayNameFor(model => model.ValorTotal)
+        </dt>
+        <dd>
+                    @Html.DisplayFor(model => model.ValorTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DtInclusao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DtInclusao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DtExclusao)
+        </dt>
+
+        @if (!Model.DtExclusao.HasValue)
+        {
+            <dd>
+                @Html.Raw("-")
+            </dd>
+        }
+        else
+        {
+            <dd>
+                @Html.DisplayFor(model => model.DtExclusao)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Situacao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Situacao)
+        </dd>
+
+    </dl>
+</div>
+
+    <div class="row gy-2 gx-3 align-items-center">
+        <div class="col-auto">
+            <input id="botaoVoltar" type="button" value="Voltar" class="btn btn-primary btn-dark" onclick="location.href='@Url.Action("Index3", "Contatos")'" />
+        </div>
+    </div>
