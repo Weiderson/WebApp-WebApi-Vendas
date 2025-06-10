@@ -1,4 +1,4 @@
-# Sistema de Projeção de Vendas Por Vendedores com API integrada - 2025
+# Sistema de Projeção de Vendas por Vendedores com API integrada - 2025
 
 ### AUTOR
 <ins>WEIDERSON MENDES QUEIROZ - ANALISTA DESENVOLVEDOR .NET</ins>
@@ -25,14 +25,14 @@
   - dotnet ef database update --project WebAPI.csproj (Vendas)
 
 ### PROJECAO
-+ Será possível adicionar/alterar/excluir uma registro através da API.
++ Será possível adicionar/alterar/excluir uma registro através do acesso externo à API.
 
 ### VENDA
-+ Será possível adicionar/alterar/excluir uma registro através da API.
++ Será possível adicionar/alterar/excluir uma registro através do acesso externo à API.
 
 ### VENDEDOR
 + Será possível detalhar/excluir uma registro através da APP.
-+ Será possível adicionar/alterar/excluir uma registro através da API.
++ Será possível adicionar/alterar/excluir um registro através do acesso externo à API.
 
 ### USUARIOS
 + Login: usuario1@email.com 
