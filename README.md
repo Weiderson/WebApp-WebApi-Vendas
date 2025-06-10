@@ -17,13 +17,12 @@
 + Versionamento
 + SQL Server
 
-### COMANDO PARA EF MIGRATIONS
-+ APP
-  - dotnet ef migrations add NewMigration 
-  - dotnet ef database update --project DesafioBackendAPI.csproj
-+ API
-  - dotnet ef migrations add NewMigration 
-  - dotnet ef database update --project DesafioBackendAPI.csproj  
+### SQL SCRIPTS/EF MIGRATIONS
++ Os scripts estão na pasta SqlScripts
++ APP  
+  - dotnet ef database update --project WebApp.csproj (Usuarios)
++ API 
+  - dotnet ef database update --project WebAPI.csproj (Vendas)
 
 ### PROJECAO
 + Será possível adicionar/alterar/excluir uma registro através da API.
@@ -36,8 +35,8 @@
 + Será possível adicionar/alterar/excluir uma registro através da API.
 
 ### USUARIOS
-+ 
-+ para resgatar a chave JWT. 
++ Login: usuario1@email.com 
++ Senha: senha12345 
 
 ### API VERSOES 
 + V1 - Projeção, Venda e Vendedor(Exclusão Lógica).
@@ -45,7 +44,7 @@
 + V3 - Foto(Vendedor)
 
 ### APP 
-+ Exclusão Lógica
++ Somente Exclusão Lógica.
 
 ### LINKS EXTERNOS
 + SQL Server
