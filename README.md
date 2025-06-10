@@ -1,4 +1,4 @@
-# Sistema de Projeção de Vendas Por Vendedorres com API integrada - 2025
+# Sistema de Projeção de Vendas Por Vendedores com API integrada - 2025
 
 ### AUTOR
 <ins>WEIDERSON MENDES QUEIROZ - ANALISTA DESENVOLVEDOR .NET</ins>
