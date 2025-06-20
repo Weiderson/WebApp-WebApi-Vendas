@@ -50,44 +50,47 @@ namespace WebApp.Controllers
         #region SESSÃO DESTINADA AOS MÉTODOS DOS CONTROLADORES
         public async Task<IActionResult> Index()
         {
-            int qtdvendedores = _db.Vendedores.Count();
+            int qtdvendedores = await _db.Vendedores.CountAsync();
             var ano = DateTime.Now.Year.ToString();
             var projecao = _db.Projecoes.FirstOrDefault(p => p.Ano == ano)?.Valor.ToString();
             Int64 projecaoc = Convert.ToInt64(projecao);
-            var ListaVendedores = (from v in _db.Vendedores
-                                   join ve in _db.Vendas on v.Id equals ve.VendedorId
-                                   into agrupado
-                                   let arg = agrupado.Where(a => a.DtExclusao == null).Sum(ve => ve.Valor)
-                                   let dt = agrupado.Select(ve => ve.DtInclusao).First()
-                                   select new VendedorVM
-                                   {
-                                       Id = v.Id,
-                                       NomeCompleto = v.NomeCompleto,
-                                       Email = v.Email,
-                                       Telefone = v.Telefone,
-                                       Relacionamento = v.Relacionamento,
-                                       DtInclusao = v.DtInclusao,
-                                       DtExclusao = v.DtExclusao,
-                                       DtExclusaoV = dt,
-                                       Situacao = v.Situacao,
-                                       ValorTotal = arg,
-                                       Perc = (arg / (projecaoc / qtdvendedores)).ToString("0.00%")
-                                   }).AsEnumerable()
-                                     .Select(v =>
-                                     {
-                                         v.ValorTotalCurrency = string.Format(new CultureInfo("pt-BR", false), "{0:c0}", v.ValorTotal);
-                                         return v;
-                                     })
-                                     .Where(w => w.DtExclusao == null)
-                                     .OrderByDescending(o => o.ValorTotalCurrency).ThenByDescending(o => o.NomeCompleto);
+            var ListaVendedores = await (from v in _db.Vendedores
+                               join ve in _db.Vendas on v.Id equals ve.VendedorId
+                               into agrupado
+                               let arg = agrupado.Where(a => a.DtExclusao == null).Sum(ve => ve.Valor)
+                               let dt = agrupado.Select(ve => ve.DtInclusao).First()
+                               select new VendedorVM
+                               {
+                                   Id = v.Id,
+                                   NomeCompleto = v.NomeCompleto,
+                                   Email = v.Email,
+                                   Telefone = v.Telefone,
+                                   Relacionamento = v.Relacionamento,
+                                   DtInclusao = v.DtInclusao,
+                                   DtExclusao = v.DtExclusao,
+                                   DtExclusaoV = dt,
+                                   Situacao = v.Situacao,
+                                   ValorTotal = arg,
+                                   Perc = (arg / (projecaoc / qtdvendedores)).ToString("0.00%")
+                               }).ToListAsync();
 
-            var totalvendaanual = ListaVendedores.Sum(v => v.ValorTotal);
+            var ListaVendedoresOtimiz = ListaVendedores
+            .Select(v =>
+      {
+          v.ValorTotalCurrency = string.Format(new CultureInfo("pt-BR", false), "{0:c0}", v.ValorTotal);
+          return v;
+      })
+      .Where(w => w.DtExclusao == null)
+      .OrderByDescending(o => o.ValorTotalCurrency).ThenByDescending(o => o.NomeCompleto);
 
-            ViewData["totalvenda"] = string.Format(new CultureInfo("pt-BR", false), "{0:c0}", totalvendaanual);
-            ViewData["projecao"] = Convert.ToInt32(projecao);
-            ViewData["qtdvendedores"] = qtdvendedores;
+  
+  var totalvendaanual = ListaVendedoresOtimiz.Sum(v => v.ValorTotal);
 
-            return View(ListaVendedores);
+  ViewData["totalvenda"] = string.Format(new CultureInfo("pt-BR", false), "{0:c0}", totalvendaanual);
+  ViewData["projecao"] = Convert.ToInt32(projecao);
+  ViewData["qtdvendedores"] = qtdvendedores;
+
+  return View(ListaVendedoresOtimiz);
         }
 
         public async Task<IActionResult> Details(long? id)
